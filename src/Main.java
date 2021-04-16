@@ -1,7 +1,10 @@
 import java.nio.file.*;
+import java.io.File;
 
 public class Main
 {
+    
+
     public static void main(String[] args) throws Exception
     {
         // Hole %APPDATA% und speichert es in appdata
@@ -29,6 +32,11 @@ public class Main
 
             System.out.println("Copy: " + source + " --> " + destination);
 
+            if (destination.toFile().isDirectory() && destination.toFile().exists())
+            {
+                return;
+            }
+
             try
             {
                 Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
@@ -38,5 +46,15 @@ public class Main
                 exc.printStackTrace();
             }
         });
+
+        Path pierremodDir = mcdir.resolve("pierremod");
+        File pierremodFile = pierremodDir.toFile();
+
+        if (! pierremodFile.exists())
+        {
+            pierremodFile.mkdir();
+        }
+
+
     }
 }
