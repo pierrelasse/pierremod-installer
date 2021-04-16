@@ -6,13 +6,13 @@ public class Main
     {
         // Hole %APPDATA% und speichert es in appdata
         String appdata = System.getenv("APPDATA");
-        System.out.println("appdata: "  + appdata);
+        // System.out.println("appdata: "  + appdata);
 
         Path mcdir = Paths.get(appdata).resolve(".minecraft");
-        System.out.println("mc dir: "  + mcdir);
+        // System.out.println("mc dir: "  + mcdir);
 
         boolean mcinstalled = mcdir.toFile().exists();
-        System.out.println("mcinstalled:" + mcinstalled);
+        // System.out.println("mcinstalled:" + mcinstalled);
 
         if (! mcinstalled)
         {
@@ -24,18 +24,19 @@ public class Main
 
         Files.walk(Paths.get("assets", "pierremod")).forEach(source ->
         {
-            Path destination = mcversionDir.resolve(source.subpath(1, source.getNameCount()));
-            System.out.println("source.subpath(1, 2): " + source.subpath(1, source.getNameCount()));
+            Path destPath = source.subpath(1, source.getNameCount());
+            Path destination = mcversionDir.resolve(destPath);
+
             System.out.println("Copy: " + source + " --> " + destination);
-            /*try
+
+            try
             {
-                Files.copy(source, destination);
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
             }
-            catch
-                (IOException e)
-                {
-                    e.printStackTrace();
-                }*/
+            catch (Exception exc)
+            {
+                exc.printStackTrace();
+            }
         });
     }
 }
