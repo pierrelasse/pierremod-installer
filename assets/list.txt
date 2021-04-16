@@ -1,5 +1,4 @@
--> .minecraft (cd %appdata%\.minecraft)
+✔ -> .minecraft (cd %appdata%\.minecraft)
 cd versions 
 md (versions) -> pierremod
 md pierremod ->(>config, resources, mods)
-
